@@ -16,12 +16,12 @@ public class UserServiceImpl implements UserServices {
 	private UserRepository userRepositiry;
 
 	@Override
-	public ResponseEntity<?> registerUser(User user) {
+	public ResponseEntity<String> registerUser(User user) {
           User save = userRepositiry.save(user);
           if(save.getUserId()>1) {
-        	 return new ResponseEntity<>(HttpStatus.CREATED);
+        	 return new ResponseEntity<String>("{ \"message\": \"" + "registered succesfully" + "\" }",HttpStatus.CREATED);
           }
-		return ResponseEntity.ok("not created");
+		return new ResponseEntity<String>("{\"error\":\""+"user not registered"+"\"}",HttpStatus.BAD_REQUEST);
 	}
 
 }

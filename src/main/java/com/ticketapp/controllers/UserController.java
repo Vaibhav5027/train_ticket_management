@@ -19,7 +19,7 @@ public class UserController {
 	
 	@PostMapping("/register")
 	ResponseEntity<?> registerUser(@RequestBody User user){
-		userServices.registerUser(user);
-		return null;
+		return userServices.registerUser(user);
+		
 	}
 }

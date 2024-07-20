@@ -17,6 +17,8 @@ public class User {
 	private Integer userId;
 	private String firstName;
 	private String lastName;
+	private String username;
+	
 	private Double mobileNumber;
 	private Date dob;
 	
@@ -62,6 +64,13 @@ public class User {
 
 	public void setMobileNumber(Double mobileNumber) {
 		this.mobileNumber = mobileNumber;
+	}
+	public String getUsername() {
+		return username;
+	}
+
+	public void setUsername(String username) {
+		this.username = username;
 	}
 
 	public Date getDob() {
