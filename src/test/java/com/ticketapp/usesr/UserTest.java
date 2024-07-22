@@ -4,7 +4,6 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import com.ticketapp.ServiceImpl.UserServiceImpl;
-import com.ticketapp.Services.UserServices;
 import com.ticketapp.entities.Address;
 import com.ticketapp.entities.User;
 
@@ -25,6 +24,6 @@ public class UserTest {
 	address.setState("xyz");
 	user.setAddress(address);
 	
-	userService.registerUser(user);
+	userService.signUp(user);
 	}
 }
