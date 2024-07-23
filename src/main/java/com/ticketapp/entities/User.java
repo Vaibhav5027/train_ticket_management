@@ -20,6 +20,13 @@ public class User {
 	private String username;
 	private String password;
 	private String role;
+
+	private Double mobileNumber;
+	private Date dob;
+	
+	@OneToOne(cascade = CascadeType.ALL)
+	@JoinColumn(name = "fk_address_id",referencedColumnName = "addressId")
+	private Address address;
 	
 	public String getRole() {
 		return role;
@@ -37,12 +44,6 @@ public class User {
 		this.password = password;
 	}
 
-	private Double mobileNumber;
-	private Date dob;
-	
-	@OneToOne(cascade = CascadeType.ALL)
-	@JoinColumn(name = "fk_address_id",referencedColumnName = "addressId")
-	private Address address;
 
 	public String getFirstName() {
 		return firstName;

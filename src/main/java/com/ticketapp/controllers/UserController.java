@@ -29,4 +29,8 @@ public class UserController {
 	ResponseEntity<?> login(@RequestBody(required = true) Map<String,Object> requestMap){
 		return userServices.login(requestMap);
 	}
+	@PostMapping("/changePassword")
+	ResponseEntity<?> changePassword(@RequestBody(required = true) Map<String,Object> requestMap){
+		return userServices.changePassword(requestMap);
+	}
 }

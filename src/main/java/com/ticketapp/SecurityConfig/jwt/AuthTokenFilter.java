@@ -24,10 +24,11 @@ public class AuthTokenFilter extends OncePerRequestFilter {
 
 	@Autowired
 	private JwtUtils jwtUtils;
+	
+	private String userName = null;
  
 	@Autowired
-    @Lazy
-	private UserDetailsService userDetailsService;
+	private CustomUserDetailsService userDetailsService;
 
 	private static final Logger logger = LoggerFactory.getLogger(AuthTokenFilter.class);
 
@@ -43,12 +44,13 @@ public class AuthTokenFilter extends OncePerRequestFilter {
 		else {
 		String token = jwtUtils.getJwtTokenFromHeader(request);
 		if (token != null && jwtUtils.validateToken(token)) {
-			String usernameFromToken = jwtUtils.getUsernameFromToken(token);
+			 userName = jwtUtils.getUsernameFromToken(token);
 
-			if (usernameFromToken != null && SecurityContextHolder.getContext().getAuthentication() == null) {
-				UserDetails user = userDetailsService.loadUserByUsername(usernameFromToken);
+			if (userName != null && SecurityContextHolder.getContext().getAuthentication() == null) {
+				UserDetails user = userDetailsService.loadUserByUsername(userName);
+				String password = user.getPassword();
 				UsernamePasswordAuthenticationToken authentication = new UsernamePasswordAuthenticationToken(
-						usernameFromToken, user);
+						userName, null,null);
 				authentication.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
 				SecurityContextHolder.getContext().setAuthentication(authentication);
 			}
@@ -56,5 +58,8 @@ public class AuthTokenFilter extends OncePerRequestFilter {
 		}
 		filterChain.doFilter(request, response);
 	}
+	}
+	public String currentUser() {
+		return userName;
 	}
 }

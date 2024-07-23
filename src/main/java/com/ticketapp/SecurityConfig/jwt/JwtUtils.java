@@ -43,13 +43,14 @@ public class JwtUtils {
 	public String generateJwtTokenFromUsername(UserDetails userDetails) {
 		String username = userDetails.getUsername();
 
-		return Jwts.builder().subject(username).issuedAt(new Date())
-				.expiration(new Date(new Date().getTime() + jwtExpirationMs)).signWith(key()).compact();
+		return Jwts.builder().subject(username).issuedAt(new Date(System.currentTimeMillis()))
+				.expiration(new Date(System.currentTimeMillis() + 1000 * 60 * 30)).signWith(key()).compact();
 
 	}
 
 	private Key key() {
-		return Keys.hmacShaKeyFor(Decoders.BASE64.decode(jwtSecret));
+		byte[] keyBytes=Decoders.BASE64.decode(jwtSecret);
+		return Keys.hmacShaKeyFor(keyBytes);
 
 	}
 
