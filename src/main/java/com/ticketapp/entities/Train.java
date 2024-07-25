@@ -1,30 +1,47 @@
 package com.ticketapp.entities;
 
+import java.time.LocalDateTime;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 
 @Entity
 public class Train {
 	@Id
-	private Long id;
-    private String name;
+	private Long train_number;
+    private String trainName;
     private String sourceStation;
     private String destinationStation;
-//    private List<String> stops; 
-    private String departureTime;
-    private String arrivalTime;
+//  private List<String> stops; 
+    private LocalDateTime  departureTime;
+    private LocalDateTime  arrivalTime;
     private String travelDuration;
-	public Long getId() {
-		return id;
+    private double fair;
+    public double getFair() {
+		return fair;
 	}
-	public void setId(Long id) {
-		this.id = id;
+	public void setFair(double fair) {
+		this.fair = fair;
+	}
+	private double total_distance;
+
+	public double getTotal_distance() {
+		return total_distance;
+	}
+	public void setTotal_distance(double total_distance) {
+		this.total_distance = total_distance;
+	}
+	public Long getTrain_number() {
+		return train_number;
+	}
+	public void setTrain_number(Long train_number) {
+		this.train_number = train_number;
 	}
 	public String getName() {
-		return name;
+		return trainName;
 	}
-	public void setName(String name) {
-		this.name = name;
+	public void setName(String trainName) {
+		this.trainName = trainName;
 	}
 	public String getSourceStation() {
 		return sourceStation;
@@ -38,16 +55,16 @@ public class Train {
 	public void setDestinationStation(String destinationStation) {
 		this.destinationStation = destinationStation;
 	}
-	public String getDepartureTime() {
+	public LocalDateTime getDepartureTime() {
 		return departureTime;
 	}
-	public void setDepartureTime(String departureTime) {
+	public void setDepartureTime(LocalDateTime departureTime) {
 		this.departureTime = departureTime;
 	}
-	public String getArrivalTime() {
+	public LocalDateTime getArrivalTime() {
 		return arrivalTime;
 	}
-	public void setArrivalTime(String arrivalTime) {
+	public void setArrivalTime(LocalDateTime arrivalTime) {
 		this.arrivalTime = arrivalTime;
 	}
 	public String getTravelDuration() {
