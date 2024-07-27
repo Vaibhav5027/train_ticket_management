@@ -18,24 +18,25 @@ import com.ticketapp.entities.User;
 public class CustomUserDetailsService implements UserDetailsService {
 	@Autowired
 	UserRepository userRepository;
-	
+
 	public User userDetails;
-	
+
 	private static final Logger logger = LoggerFactory.getLogger(CustomUserDetailsService.class);
 
 	@Override
 	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-		logger.info("inside loadUserByUsername {} ",username);
-	   userDetails = userRepository.findByUsername(username);
-		 
-		 if(!Objects.isNull(userDetails)) {
-			 return new org.springframework.security.core.userdetails.User(userDetails.getUsername(), userDetails.getPassword(),new ArrayList<>() );
-		 }
-		 else {
-			 throw new UsernameNotFoundException("User Not Found");
-		 }
+		logger.info("inside loadUserByUsername {} ", username);
+		userDetails = userRepository.findByUsername(username);
+
+		if (!Objects.isNull(userDetails)) {
+//			return new org.springframework.security.core.userdetails.User(userDetails.getUsername(),userDetails.getPassword(),new ArrayList<>());
+			return new CustomUserDetails(userDetails);
+		} else {
+			throw new UsernameNotFoundException("User Not Found");
+		}
 
 	}
+
 	public User getUserDetails() {
 		return userDetails;
 	}

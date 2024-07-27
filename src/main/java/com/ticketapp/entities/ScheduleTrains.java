@@ -2,15 +2,13 @@ package com.ticketapp.entities;
 
 import java.time.LocalTime;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 
 @Entity
-public class Train {
+public class ScheduleTrains {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private long id;

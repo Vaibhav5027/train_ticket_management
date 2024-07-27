@@ -12,6 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
+import com.ticketapp.Repository.ScheduleTrainRepo;
 import com.ticketapp.Repository.TrainRepository;
 import com.ticketapp.Services.TrainServices;
 import com.ticketapp.constants.TrainConstant;
@@ -22,11 +23,13 @@ public class TrainServiceImpl implements TrainServices {
 
 	@Autowired
 	private TrainRepository trainRepository;
+	@Autowired
+	private ScheduleTrainRepo scRepo;
 	
     private static final Logger logger=LoggerFactory.getLogger(TrainServiceImpl.class);
 	@Override
 	public ResponseEntity<?> addTrainDetails(Map<String, Object> requestMap) {
-		 DateTimeFormatter timeFormatter = DateTimeFormatter.ofPattern("HH:mm");
+		DateTimeFormatter timeFormatter = DateTimeFormatter.ofPattern("HH:mm");
 	    LocalTime departureTime = LocalTime.parse((String)requestMap.get("departureTime"), timeFormatter);
 	    LocalTime arrivalTime = LocalTime.parse((String)requestMap.get("arrivalTime"), timeFormatter);
 		long travelDuration = arrivalTime.getHour()-departureTime.getHour();
@@ -37,8 +40,10 @@ public class TrainServiceImpl implements TrainServices {
 		 trainDTO.setFair(calculateFair);
 		 
 		 try {
+			 
 			 Train save = this.trainRepository.save(trainDTO);
 			 if(save.getId()>0) {
+				 logger.info("train added succesfully :{}");
 				 return  ResponseEntity.ok("{ \"message\": \"" + "train registered succesfully" + "\" }");
 			 }
 			 }
@@ -46,7 +51,7 @@ public class TrainServiceImpl implements TrainServices {
 			logger.error(e.getMessage());
 		 }
 		
-		return null;
+		 return  ResponseEntity.ok("{ \"error\": \"" + TrainConstant.GenericError + "\" }");
 	}
 
 	@Override
@@ -74,8 +79,29 @@ public class TrainServiceImpl implements TrainServices {
 	//this method for only admin
 	@Override
 	public ResponseEntity<?> scheduleTrain(Map<String, Object> requestMap) {
-		
-		return null;
+//		DateTimeFormatter timeFormatter = DateTimeFormatter.ofPattern("HH:mm");
+//	    LocalTime departureTime = LocalTime.parse((String)requestMap.get("departureTime"), timeFormatter);
+//	    LocalTime arrivalTime = LocalTime.parse((String)requestMap.get("arrivalTime"), timeFormatter);
+//		long travelDuration = arrivalTime.getHour()-departureTime.getHour();
+//		double calculateFair = calculateFair(travelDuration);
+//	  
+//	    Train trainDTO = getTrainDTO(requestMap);
+//		 trainDTO.setTravelDuration(travelDuration);
+//		 trainDTO.setFair(calculateFair);
+//		 
+//		 try {
+//			 
+//			 this.scRepo.save(null)
+//			 if(save.getId()>0) {
+//				 logger.info("train added succesfully :{}");
+//				 return  ResponseEntity.ok("{ \"message\": \"" + "train registered succesfully" + "\" }");
+//			 }
+//			 }
+//		 catch(Exception e) {
+//			logger.error(e.getMessage());
+//		 }
+//		
+		 return  ResponseEntity.ok("{ \"error\": \"" + TrainConstant.GenericError + "\" }");
 	}
 
 	@Override

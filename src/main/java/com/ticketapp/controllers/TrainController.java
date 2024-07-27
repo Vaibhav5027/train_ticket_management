@@ -4,6 +4,7 @@ import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -21,6 +22,7 @@ public class TrainController {
 	private TrainServices trainService;
 
 	@PostMapping("/addTrain")
+	@PreAuthorize("hasRole('ROLE_ADMIN')")
 	ResponseEntity<?> addTrain(@RequestBody Map<String,Object> requestMap){
 		return trainService.addTrainDetails(requestMap);
 	} 
@@ -34,4 +36,9 @@ public class TrainController {
 	ResponseEntity<?> findTrain(@RequestBody Map<String,Object> requestMap){
 		return trainService.searchTrain(requestMap);
 	}
+//	@PostMapping("/scheduleTrain")
+//	@PreAuthorize("hasRole('ROLE_ADMIN')")
+//	ResponseEntity<?> scheduleTrain(@RequestBody Map<String,Object> requestMap){
+//		return trainService.scheduleTrain(requestMap);
+//	}
 }

@@ -11,7 +11,7 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.OneToOne;
 
 @Entity
-public class User {
+public class User{
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer userId;
@@ -98,6 +98,7 @@ public class User {
 	public void setDob(Date dob) {
 		this.dob = dob;
 	}
+
 
 
 }

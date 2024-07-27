@@ -34,10 +34,15 @@ public class JwtUtils {
 	public String getJwtTokenFromHeader(HttpServletRequest request) {
 		String bearerToken = request.getHeader("Authorization");
 		logger.debug("Authorization header:{}", bearerToken);
-		if (bearerToken != null && bearerToken.startsWith("Bearer ")) {
-			return bearerToken.substring(7);
+		
+		try {
+			if (bearerToken != null && bearerToken.startsWith("Bearer ")) {
+				return bearerToken.substring(7);
+			}
+		} catch (Exception e) {
+		logger.error(e.getMessage());
 		}
-		return null;
+		return "no token found";
 	}
 
 	public String generateJwtTokenFromUsername(UserDetails userDetails) {
